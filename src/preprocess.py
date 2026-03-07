@@ -1,13 +1,16 @@
 import pandas as pd
 from pathlib import Path
 
-from config import TARGET_COL
+from config import TARGET_COL, BASE_DIR
 from data_load import load_raw_data
 
 CATEGORICAL_COLS = ["protocol_type", "service", "flag"]
 
 
 def preprocess_data(train_df, test_df):
+
+    train_df = train_df.drop(columns=["difficulty_level"], errors="ignore")
+    test_df = test_df.drop(columns=["difficulty_level"], errors="ignore")
 
     train_df[TARGET_COL] = train_df[TARGET_COL].apply(lambda x: 0 if x == "normal" else 1)
     test_df[TARGET_COL] = test_df[TARGET_COL].apply(lambda x: 0 if x == "normal" else 1)
@@ -19,15 +22,15 @@ def preprocess_data(train_df, test_df):
     y_test = test_df[TARGET_COL]
 
     # One Hot Encoding
-    X_train = pd.get_dummies(X_train, columns=CATEGORICAL_COLS)
-    X_test = pd.get_dummies(X_test, columns=CATEGORICAL_COLS)
+    X_train = pd.get_dummies(X_train, columns=CATEGORICAL_COLS, dtype=int)
+    X_test = pd.get_dummies(X_test, columns=CATEGORICAL_COLS, dtype=int)
 
     X_train, X_test = X_train.align(X_test, join="left", axis=1, fill_value=0)
 
     return X_train, X_test, y_train, y_test
 
 
-def save_processed(X_train, X_test, y_train, y_test, out_dir="data/processed"):
+def save_processed(X_train, X_test, y_train, y_test, out_dir= BASE_DIR / "data/processed"):
     out_dir = Path(out_dir)
     out_dir.mkdir(parents=True, exist_ok=True)
 
@@ -38,13 +41,16 @@ def save_processed(X_train, X_test, y_train, y_test, out_dir="data/processed"):
 
 
 if __name__ == "__main__":
-
     train_df, test_df = load_raw_data()
 
+    print(train_df.head())
     X_train, X_test, y_train, y_test = preprocess_data(train_df, test_df)
 
+    print(y_train.head())
+    print(X_train)
+    
     save_processed(X_train, X_test, y_train, y_test)
 
-    print("Done.")
-    print("X_train:", X_train.shape, "X_test:", X_test.shape)
-    print("y_train distribution:\n", y_train.value_counts())
+
+
+
