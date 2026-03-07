@@ -5,6 +5,7 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 TRAIN_PATH = BASE_DIR / "data/raw/KDDTrain+.txt"
 TEST_PATH  = BASE_DIR / "data/raw/KDDTest+.txt"
 
+
 RANDOM_STATE = 42
 
 NORMAL_LABEL = "normal"
