@@ -1,4 +1,4 @@
-from src.train import train_random_forest
+from src.train import train_random_forest, train_decision_tree
 from src.evaluate import evaluate_model
 import pandas as pd
 
@@ -11,12 +11,10 @@ y_test = pd.read_csv("data/processed/y_test.csv")
 y_train = y_train.values.ravel()
 y_test = y_test.values.ravel()
 
+models = {
+    "Decision Tree":       train_decision_tree(X_train, y_train),
+    "Random Forest":       train_random_forest(X_train, y_train),
+}
 
-# print(X_train.shape)
-# print(y_train.shape)
-
-# print(X_test.shape)
-# print(y_test.shape)
-
-model = train_random_forest(X_train, y_train)
-evaluate_model(model, X_test, y_test)
+for name, model in models.items():
+    evaluate_model(model, X_test, y_test, model_name=name, threshold=0.05)
