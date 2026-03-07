@@ -1,6 +1,7 @@
 import pandas as pd
 from pathlib import Path
-from config import TRAIN_PATH, TEST_PATH, COLUMNS
+from config import TRAIN_PATH, TEST_PATH, COLUMNS, BASE_DIR
+
 
 
 def load_raw_data():
@@ -10,8 +11,8 @@ def load_raw_data():
 
 
 def save_processed_data(train_df, test_df):
-    train_df.to_csv("data/processed/train.csv", index=False)
-    test_df.to_csv("data/processed/test.csv", index=False)
+    train_df.to_csv(BASE_DIR / "data/processed/train.csv", index=False)
+    test_df.to_csv(BASE_DIR / "data/processed/test.csv", index=False)
 
 
 if __name__ == "__main__":
