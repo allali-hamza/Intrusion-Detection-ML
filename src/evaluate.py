@@ -1,10 +1,12 @@
-from sklearn.metrics import accuracy_score, precision_score, recall_score, f1_score, classification_report, confusion_matrix
+from sklearn.metrics import (
+    accuracy_score, precision_score, recall_score,
+    f1_score, classification_report, confusion_matrix
+)
 
 
 def evaluate_model(model, X_test, y_test, model_name="Model", threshold=0.5):
 
     y_proba = model.predict_proba(X_test)[:, 1]
-
     y_pred = (y_proba >= threshold).astype(int)
 
     print(f"\n{'='*50}")

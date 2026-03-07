@@ -1,6 +1,8 @@
-from src.train import train_random_forest, train_decision_tree
-from src.evaluate import evaluate_model
 import pandas as pd
+
+from src.train import train_random_forest, train_decision_tree, train_xgboost
+from src.evaluate import evaluate_model
+
 
 X_train = pd.read_csv("data/processed/X_train.csv")
 y_train = pd.read_csv("data/processed/y_train.csv")
@@ -12,8 +14,9 @@ y_train = y_train.values.ravel()
 y_test = y_test.values.ravel()
 
 models = {
-    "Decision Tree":       train_decision_tree(X_train, y_train),
-    "Random Forest":       train_random_forest(X_train, y_train),
+    "Decision Tree": train_decision_tree(X_train, y_train),
+    "Random Forest": train_random_forest(X_train, y_train),
+    "XGBoost":       train_xgboost(X_train, y_train),
 }
 
 for name, model in models.items():
