@@ -135,7 +135,3 @@ The preprocessing stage:
 - Save trained models and experiment metrics.
 - Add ROC and precision-recall curves, plus feature importance plots.
 - Test on recent traffic: NSL-KDD is a historical benchmark and may not represent current threats.
-
-## License
-
-No license has been specified for this repository yet.
