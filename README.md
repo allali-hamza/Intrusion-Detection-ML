@@ -58,7 +58,7 @@ pie showData
 | Random Forest | 100 trees, `class_weight="balanced"`, parallel training enabled |
 | XGBoost | 200 trees, maximum depth 6, learning rate 0.1, class weight derived from the training set |
 
-## Latest reproducible run
+## Results
 
 The full pipeline was run against the included `KDDTrain+.txt` and `KDDTest+.txt` files with a decision threshold of `0.05`. The positive class is **attack**.
 
@@ -128,10 +128,6 @@ The preprocessing stage:
 ├── main.py                  # Training/evaluation entry point
 └── requirements.txt
 ```
-
-## Evaluation note
-
-A connection is classified as an attack when `predict_proba(...)[1] >= 0.05`. This deliberately low threshold can improve attack recall, but it can also increase false positives. For operational use, select the threshold according to the relative cost of false negatives and false positives, and assess precision, recall, F1-score, and the confusion matrix—not accuracy alone.
 
 ## Limitations and next steps
 
