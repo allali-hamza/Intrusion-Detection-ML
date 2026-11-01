@@ -1,0 +1,3 @@
+# Keep exploratory notebooks in the repository without letting them dominate
+# GitHub Linguist's language breakdown.
+notebooks/*.ipynb linguist-detectable=false
